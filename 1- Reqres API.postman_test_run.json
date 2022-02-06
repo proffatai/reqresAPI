@@ -1,0 +1,294 @@
+{
+	"id": "8898c98a-d479-467d-884a-13de6e9d753b",
+	"name": "1: Reqres API",
+	"timestamp": "2022-02-05T14:38:34.813Z",
+	"collection_id": "19375402-616287fa-c789-4a3d-9bbd-038e2b630324",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 14,
+	"totalFail": 7,
+	"results": [
+		{
+			"id": "9be685a5-0168-4008-ae61-c741a837cb38",
+			"name": "Getting / extracting all the users available on page 2",
+			"url": "https://reqres.in/api/users?page=2",
+			"time": 5135,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"validating status code": true,
+				"Checking if body contains Hello world": false,
+				"Validating response body2": true,
+				"page is 2?": true,
+				"total page verification": true
+			},
+			"testPassFailCounts": {
+				"validating status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Checking if body contains Hello world": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Validating response body2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"page is 2?": {
+					"pass": 1,
+					"fail": 0
+				},
+				"total page verification": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5135
+			],
+			"allTests": [
+				{
+					"validating status code": true,
+					"Checking if body contains Hello world": false,
+					"Validating response body2": true,
+					"page is 2?": true,
+					"total page verification": true
+				}
+			]
+		},
+		{
+			"id": "1b4f3758-dd49-40c9-a6e4-6db516024ac0",
+			"name": "Extracting a single user",
+			"url": "https://reqres.in/api/users/2",
+			"time": 1049,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Check if user exist1": false,
+				"Check if user exist2": true,
+				"Check if user exist3": true,
+				"Check if firstname exist": true,
+				"Check if email exist": true
+			},
+			"testPassFailCounts": {
+				"Check if user exist1": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Check if user exist2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check if user exist3": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check if firstname exist": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check if email exist": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1049
+			],
+			"allTests": [
+				{
+					"Check if user exist1": false,
+					"Check if user exist2": true,
+					"Check if user exist3": true,
+					"Check if firstname exist": true,
+					"Check if email exist": true
+				}
+			]
+		},
+		{
+			"id": "af553f04-1346-4cc1-8fda-1fdd644845fa",
+			"name": "POST 1:Insert a user into the body of the page",
+			"url": "https://reqres.in/api/users",
+			"time": 886,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"validating status code": true,
+				"Check name": true,
+				"Check job": true,
+				"Check sex": false,
+				"Check email": true
+			},
+			"testPassFailCounts": {
+				"validating status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check job": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check sex": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Check email": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				886
+			],
+			"allTests": [
+				{
+					"validating status code": true,
+					"Check name": true,
+					"Check job": true,
+					"Check sex": false,
+					"Check email": true
+				}
+			]
+		},
+		{
+			"id": "188387e1-b883-4901-b370-9a5848c2ebed",
+			"name": "POST 2: Verify login status with valid login details",
+			"url": "https://reqres.in/api/login",
+			"time": 657,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"login status": true,
+				"verify login": true
+			},
+			"testPassFailCounts": {
+				"login status": {
+					"pass": 1,
+					"fail": 0
+				},
+				"verify login": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				657
+			],
+			"allTests": [
+				{
+					"login status": true,
+					"verify login": true
+				}
+			]
+		},
+		{
+			"id": "28f0df41-80a9-49a0-916e-d0f31b441621",
+			"name": "POST 3: Verify login status with wrong login details",
+			"url": "https://reqres.in/api/login",
+			"time": 559,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"login status": false,
+				"verify login": false
+			},
+			"testPassFailCounts": {
+				"login status": {
+					"pass": 0,
+					"fail": 1
+				},
+				"verify login": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				559
+			],
+			"allTests": [
+				{
+					"login status": false,
+					"verify login": false
+				}
+			]
+		},
+		{
+			"id": "210097b7-b9b5-429f-bed2-1f2a1097798d",
+			"name": "POST 4: Verify login status with missing password",
+			"url": "https://reqres.in/api/login",
+			"time": 515,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"login status": false,
+				"verify login": false
+			},
+			"testPassFailCounts": {
+				"login status": {
+					"pass": 0,
+					"fail": 1
+				},
+				"verify login": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				515
+			],
+			"allTests": [
+				{
+					"login status": false,
+					"verify login": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 8801,
+	"collection": {
+		"requests": [
+			{
+				"id": "9be685a5-0168-4008-ae61-c741a837cb38",
+				"method": "GET"
+			},
+			{
+				"id": "1b4f3758-dd49-40c9-a6e4-6db516024ac0",
+				"method": "GET"
+			},
+			{
+				"id": "af553f04-1346-4cc1-8fda-1fdd644845fa",
+				"method": "POST"
+			},
+			{
+				"id": "188387e1-b883-4901-b370-9a5848c2ebed",
+				"method": "POST"
+			},
+			{
+				"id": "28f0df41-80a9-49a0-916e-d0f31b441621",
+				"method": "POST"
+			},
+			{
+				"id": "210097b7-b9b5-429f-bed2-1f2a1097798d",
+				"method": "POST"
+			}
+		]
+	}
+}

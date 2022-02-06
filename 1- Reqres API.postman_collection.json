@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "616287fa-c789-4a3d-9bbd-038e2b630324",
+		"name": "1: Reqres API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Getting / extracting all the users available on page 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"validating status code\"]= responseCode.code==200; //cnecking if the returned status code is 200. We use the responseCode property to get that\r",
+							"// checking if the body of the response contain contain a certain text. It doesnt matter where the text is, we re only checking the whole body to see if it contains a certain text using the has() of the responseBody class\r",
+							"tests[\"Checking if body contains Hello world\"]= responseBody.has(\"Hello world\");\r",
+							"\r",
+							"tests[\"Validating response body2\"]= responseBody.has(\"first_name\");\r",
+							"\r",
+							"tests[\"Validating response body2\"]= responseBody.has(\"data\"); // checking if the body contains the word data \r",
+							"\r",
+							"//Checking if we re actually on page 2\r",
+							"\r",
+							"var my_response= JSON.parse(responseBody); //storing the body of the response as a JSON to a variable response\r",
+							"tests[\"page is 2?\"]= my_response.page==2;// we are accessing the page attribute of the JSON and checking if its value is equal to 2\r",
+							"\r",
+							"tests[\"total page verification\"]=my_response.total%2==0; //checking if the total attribute of the JSON is even\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Extracting a single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validating / checking if the response body contains some text\r",
+							"//NB: response body of user with id=2 has been extracted from all the users compared to the \"page 2 verification\" request\r",
+							"\r",
+							"tests[\"Check if user exist1\"]= responseBody.has(\"Fatai\"); //The body doesnt contain Fatai at all \r",
+							"tests[\"Check if user exist2\"]= responseBody.has(\"Janet\");\r",
+							"tests[\"Check if user exist3\"]= responseBody.has(\"avatar\");\r",
+							"\r",
+							"//validating / checking if the response body contains data with some text\r",
+							"\r",
+							"var response=JSON.parse(responseBody);\r",
+							"//tests[\"Check if user exist4\"]=response.email.has(\"Fatai\");\r",
+							"tests[\"Check if firstname exist\"]=response.data.first_name==\"Janet\";\r",
+							"tests[\"Check if email exist\"]=response.data.email==\"janet.weaver@reqres.in\";\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 1:Insert a user into the body of the page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"validating status code\"]= responseCode.code==201\r",
+							"response=JSON.parse(responseBody)\r",
+							"\r",
+							"tests[\"Check name\"]= response.name==\"Ibrahim\"\r",
+							"tests[\"Check job\"]= response.Job==\"Software Tester\"\r",
+							"\r",
+							"tests[\"Check sex\"]= response.Sex==\"Female\"\r",
+							"tests[\"Check email\"]= response.Email==\"proffatai@gmail.com\"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ibrahim\",\r\n    \"Job\": \"Software Tester\",\r\n    \"Sex\": \"Male\",\r\n    \"Age\":26,\r\n    \"Email\": \"proffatai@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 2: Verify login status with valid login details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"login status\"] =responseCode.code==200 || responseCode.code==201\r",
+							"\r",
+							"//for a successful request, the response payload would contain token\r",
+							"tests[\"verify login\"]=responseBody.has(\"token\");  // if the response body contains token, then the request was successful"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 3: Verify login status with wrong login details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"login status\"] =responseCode.code==200 || responseCode.code==201\r",
+							"\r",
+							"//for a successful request, the response payload would contain token\r",
+							"tests[\"verify login\"]=responseBody.has(\"token\");  // if the response body contains token, then the request was successful"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"proffatai@gmail.com\",\r\n    \"password\": \"IloveYOU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 4: Verify login status with missing password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"login status\"] =responseCode.code==200 || responseCode.code==201\r",
+							"\r",
+							"//for a successful request, the response payload would contain token\r",
+							"tests[\"verify login\"]=responseBody.has(\"token\");  // if the response body contains token, then the request was successful"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"Adex@gmail.com\"\r\n}\r\n//No password was provided",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
